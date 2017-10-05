@@ -3,13 +3,10 @@
     <v-flex xs6 offset-xs3>
       <div class="white elevation-2">
         <v-toolbar flat dense class="green darken-1" dark>
-          <v-toolbar-title>Register</v-toolbar-title>
+          <v-toolbar-title>Login</v-toolbar-title>
         </v-toolbar>
 
         <div class="pl-4 pr-4 pt-2 pb-2">
-          <form
-            name="tab-tracker-form"
-            autocomplete="off">
           <v-text-field
             label="Email"
             name="email"
@@ -19,7 +16,6 @@
             name="password"
             label="Password"
             v-model="password"
-            autocomplete="new-password"
             hint="At least 8 charactes and max 32 characters"
             min="8"
             type="password"
@@ -30,9 +26,8 @@
             <br>
             <v-btn
               class="green darken-1" dark
-              @click="register">
-              Register</v-btn>
-          </form>
+              @click="login">
+              login</v-btn>
          </div>
       </div>
     </v-flex>
@@ -50,16 +45,15 @@ export default {
     }
   },
   methods: {
-    async register () {
+    async login () {
       try {
-        const response = await AuthenticationServices.register({
+        const response = await AuthenticationServices.login({
           email: this.email,
           password: this.password
         })
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setUser', response.data.user)
       } catch (error) {
-        console.log(error.response)
         this.error = error.response.data.error
       }
     }
